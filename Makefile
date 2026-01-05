@@ -2,7 +2,13 @@ include config.env
 
 .PHONY: all db assembly blast
 
-all: db assembly blast
+# No Makefile:
+
+# Ordem correta: Banco -> Filtro -> Montagem -> BLAST
+all: db filter-host assembly blast
+
+filter-host:
+	bash scripts/03_filter_host.sh
 
 # 1. Baixar banco (do vírus escolhido no config)
 db:
