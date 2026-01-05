@@ -72,3 +72,9 @@ test: test-env ptv-fasta-legacy blastdb bowtie2-index
 
 clean:
 	rm -rf run_T1 blastdb bowtie2 results logs tmp
+# ---- PTV-enriched (Bowtie2 -> Velvet -> BLAST -> hits -> MAFFT addfragments) ----
+KMER_PTV ?= 51
+
+.PHONY: ptv-enriched-run
+ptv-enriched-run: bowtie2-index blastdb
+	STOP_AFTER_ALIGN=$(STOP_AFTER_ALIGN) ./scripts/05_ptv_enriched_run.sh "$(SAMPLE)" "$(KMER_PTV)"
