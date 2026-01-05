@@ -9,7 +9,7 @@ echo "[PIPELINE] Montador escolhido: $ASSEMBLER"
 
 if [[ "$ASSEMBLER" == "spades" ]]; then
     # Chama o SPAdes usando os parâmetros do config
-    scripts/01_run_spades.sh "$SAMPLE_NAME" "$THREADS" "$SPADES_PARAMS"
+    scripts/01_run_spades.sh "$SAMPLE_NAME" "$THREADS" $SPADES_PARAMS
 
 elif [[ "$ASSEMBLER" == "velvet" ]]; then
     # Chama o Velvet usando os parâmetros do config
