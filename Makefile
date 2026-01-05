@@ -17,6 +17,21 @@ BOWTIE2_INDEX ?= bowtie2/ptv
 .PHONY: help setup_dirs test-env filter-host test-velvet test-blast \
 	ptv-fasta ptv-fasta-legacy blastdb bowtie2-index test clean
 
+-include config.env
+
+.PHONY: cfg-all cfg-db cfg-assembly cfg-blast
+
+cfg-all: cfg-db cfg-assembly cfg-blast
+
+cfg-db:
+	bash scripts/10_build_custom_db.sh
+
+cfg-assembly:
+	bash scripts/run_assembly_router.sh
+
+cfg-blast:
+	bash scripts/02_run_blast_generic.sh
+
 help:
 	@echo "Alvos disponíveis:"
 	@echo "  make setup_dirs             # cria estrutura básica (data/, results/, docs/)"
