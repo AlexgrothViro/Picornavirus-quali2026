@@ -30,7 +30,7 @@ cfg-assembly:
 	bash scripts/run_assembly_router.sh
 
 cfg-blast:
-	bash scripts/02_run_blast_generic.sh
+	bash scripts/02_run_blast.sh
 
 help:
 	@echo "Alvos disponíveis:"
