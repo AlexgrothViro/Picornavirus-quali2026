@@ -64,3 +64,21 @@ make fix-wsl
 ```
 
 O alvo `fix-wsl` normaliza os arquivos rastreados para LF e restaura permissões de execução nos scripts. Em seguida, `00_check_env.sh --install` garante que as dependências (incluindo ferramentas de filogenia) estejam disponíveis. Depois disso, siga o fluxo normal (`make ptv-fasta`, `make blastdb`, etc.).
+
+---
+
+## 4. Comando único (quick start)
+
+Para rodar toda a verificação e o pipeline básico em um único comando, use:
+
+```bash
+./scripts/20_run_pipeline.sh --install --sample 81554_S150 --kmer 31
+```
+
+Esse script faz:
+1. checagem/instalação de dependências;
+2. preparação de diretórios e bancos (FASTA + BLAST + Bowtie2);
+3. montagem dos contigs (Velvet por padrão);
+4. BLAST dos contigs contra o banco de PTV.
+
+Se existir `config.env`, ele é usado como base (ex.: `ASSEMBLER=spades`, `VELVET_K`, `THREADS`). Também dá para chamar via `make pipeline`.
