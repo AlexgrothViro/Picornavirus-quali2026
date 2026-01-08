@@ -15,7 +15,7 @@ BLAST_DB      ?= blastdb/ptv
 BOWTIE2_INDEX ?= bowtie2/ptv
 
 .PHONY: help setup_dirs deps test-env filter-host test-velvet test-blast \
-	ptv-fasta ptv-fasta-legacy blastdb bowtie2-index test clean fix-wsl
+	ptv-fasta ptv-fasta-legacy blastdb bowtie2-index pipeline test clean fix-wsl
 
 -include config.env
 
@@ -40,6 +40,7 @@ help:
 	@echo "  make ptv-fasta-legacy       # cria symlink data/ptv_db.fa -> $(REF_FASTA)"
 	@echo "  make blastdb                # gera banco BLAST em $(BLAST_DB) (usa $(REF_FASTA))"
 	@echo "  make bowtie2-index          # gera índice Bowtie2 em $(BOWTIE2_INDEX) (usa $(REF_FASTA))"
+	@echo "  make pipeline               # roda verificação + pipeline completo (scripts/20_run_pipeline.sh)"
 	@echo "  make test-env               # verifica dependências básicas"
 	@echo "  make test                   # roda smoke test (prep + 90_smoke_test.sh)"
 	@echo "  make filter-host/test-velvet/test-blast # alvos individuais legados"
@@ -78,6 +79,9 @@ blastdb: ptv-fasta
 bowtie2-index: ptv-fasta
 	mkdir -p $(dir $(BOWTIE2_INDEX))
 	bowtie2-build "$(REF_FASTA)" "$(BOWTIE2_INDEX)"
+
+pipeline:
+	$(SCRIPTS_DIR)/20_run_pipeline.sh
 
 filter-host:
 	$(SCRIPTS_DIR)/03_filter_host.sh $(SAMPLE)
